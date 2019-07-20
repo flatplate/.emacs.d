@@ -1,12 +1,12 @@
-(setq evil-want-C-u-scroll t)  ; use C-u to scroll up half a page
-(evil-mode 1)
-(evil-ex-define-cmd "q" 'kill-this-buffer) ; prevent accidentally killing the frame
+;(setq evil-want-C-u-scroll t)  ; use C-u to scroll up half a page
+;(evil-mode 1)
+;(evil-ex-define-cmd "q" 'kill-this-buffer) ; prevent accidentally killing the frame
 
-(defun ian/save-and-kill-this-buffer ()
-  (interactive)
-  (save-buffer)
-  (kill-this-buffer))
-(evil-ex-define-cmd "wq" 'ian/save-and-kill-this-buffer)
+;(defun ian/save-and-kill-this-buffer ()
+;  (interactive)
+;  (save-buffer)
+;  (kill-this-buffer))
+;(evil-ex-define-cmd "wq" 'ian/save-and-kill-this-buffer)
 
 (add-hook 'prog-mode-hook 'company-mode)
 (setq company-minimum-prefix-length 1)
@@ -42,7 +42,7 @@
 
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
-(setq js-indent-level 2)
+(setq js-indent-level 4)
 (setq c-default-style
       '((java-mode . "java")
         (awk-mode . "awk")
@@ -84,7 +84,7 @@
 (setq dashboard-items nil)
 (setq dashboard-set-footer nil)
 
-(set-frame-font "Menlo-13" nil t)
+(set-frame-font "Menlo-11" nil t)
 
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
@@ -102,6 +102,32 @@
 (add-hook 'prog-mode-hook 'highlight-operators-mode)
 (add-hook 'prog-mode-hook 'hes-mode)    ;; highlight escape sequences
 
+(set-face-attribute 'mode-line nil :font "Roboto-12")
+
+(require 'powerline)
+
+      (powerline-center-theme)
+
+(require 'treemacs)
+
+(set-face-attribute 'treemacs-directory-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-collapsed-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-file-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-collapsed-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-file-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-unreadable-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-unreadable-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-disconnected-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-tags-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-help-title-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-help-column-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-term-node-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-on-success-pulse-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-on-failure-pulse-face nil :font "Roboto-12")
+
 (setq make-backup-files nil)
 
 (setq show-paren-delay 0)
@@ -114,9 +140,9 @@
   "Split window below"
   (interactive)
   (split-window-below)
-  (other-window 1))
 
-(defun ian/split-and-follow-vertically ()
+  (other-window 1))
+  (defun ian/split-and-follow-vertically ()
   "Split window right"
   (interactive)
   (split-window-right)
@@ -130,3 +156,15 @@
 (setq which-key-idle-secondary-delay 0.4)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(require 'centaur-tabs)
+
+(global-set-key [C-tab] 'centaur-tabs-forward)
+(global-set-key [C-S-tab] 'centaur-tabs-backward)
+
+(global-linum-mode 1)
+
+(set-frame-parameter nil 'undecorated t)
+
+(setq auto-save-file-name-transforms
+  `((".*" "~/.emacs-saves/" t)))

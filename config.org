@@ -4,15 +4,15 @@
 * Evil Mode
 I personally find Vi(m) bindings to be the most efficient way of editing text (especially code) . I also changed the default ':q' and ':wq' to be killing current buffer instead of killing the frame or subsequently killing Emacs.
 #+BEGIN_SRC emacs-lisp
-    (setq evil-want-C-u-scroll t)  ; use C-u to scroll up half a page
-    (evil-mode 1)
-    (evil-ex-define-cmd "q" 'kill-this-buffer) ; prevent accidentally killing the frame
+    ;(setq evil-want-C-u-scroll t)  ; use C-u to scroll up half a page
+    ;(evil-mode 1)
+    ;(evil-ex-define-cmd "q" 'kill-this-buffer) ; prevent accidentally killing the frame
 
-    (defun ian/save-and-kill-this-buffer ()
-      (interactive)
-      (save-buffer)
-      (kill-this-buffer))
-    (evil-ex-define-cmd "wq" 'ian/save-and-kill-this-buffer)
+    ;(defun ian/save-and-kill-this-buffer ()
+    ;  (interactive)
+    ;  (save-buffer)
+    ;  (kill-this-buffer))
+    ;(evil-ex-define-cmd "wq" 'ian/save-and-kill-this-buffer)
 #+END_SRC
 * Company Autocompletion & Yasnippets
 Use company for autocompletion and some dropdown menu colour tweaks based on the current colourscheme
@@ -63,7 +63,7 @@ Use 4-space indentation (no tabs), except for JavaScript (use 2 spaces)
 #+BEGIN_SRC emacs-lisp
   (setq-default tab-width 4)
   (setq-default indent-tabs-mode nil)
-  (setq js-indent-level 2)
+  (setq js-indent-level 4)
   (setq c-default-style
         '((java-mode . "java")
           (awk-mode . "awk")
@@ -81,6 +81,10 @@ Use 4-space indentation (no tabs), except for JavaScript (use 2 spaces)
     (indent-according-to-mode))
   (global-set-key (kbd "RET") 'ian/newline-and-push-brace)
 #+END_SRC
+
+#+RESULTS:
+: ian/newline-and-push-brace
+
 * Load init file anywhere
 A quick command to reload the configuration file(s).
 #+BEGIN_SRC emacs-lisp
@@ -124,9 +128,13 @@ Override Emacs' default scrolling design: jumping half-page.
 #+END_SRC
 ** Better looks and defaults
 *** Setting default font
+
 #+BEGIN_SRC emacs-lisp
-      (set-frame-font "Menlo-13" nil t)
+      (set-frame-font "Menlo-11" nil t)
 #+END_SRC
+
+#+RESULTS:
+
 *** Auto-pairing brackets etc.
 Electric-pair-mode has improved quite a bit in recent Emacs versions. No longer need an extra package for this.
 #+BEGIN_SRC emacs-lisp
@@ -148,6 +156,49 @@ Electric-pair-mode has improved quite a bit in recent Emacs versions. No longer 
   (add-hook 'prog-mode-hook 'highlight-operators-mode)
   (add-hook 'prog-mode-hook 'hes-mode)    ;; highlight escape sequences
 #+END_SRC
+*** Set Menu Font
+
+#+BEGIN_SRC emacs-lisp
+      (set-face-attribute 'mode-line nil :font "Roboto-12")
+#+END_SRC
+
+#+RESULTS:
+*** Powerline
+
+#+BEGIN_SRC emacs-lisp
+(require 'powerline)
+
+      (powerline-center-theme)
+#+END_SRC
+
+#+RESULTS:
+| %e | (:eval (let* ((active (powerline-selected-window-active)) (mode-line-buffer-id (if active (quote mode-line-buffer-id) (quote mode-line-buffer-id-inactive))) (mode-line (if active (quote mode-line) (quote mode-line-inactive))) (face0 (if active (quote powerline-active0) (quote powerline-inactive0))) (face1 (if active (quote powerline-active1) (quote powerline-inactive1))) (face2 (if active (quote powerline-active2) (quote powerline-inactive2))) (separator-left (intern (format powerline-%s-%s (powerline-current-separator) (car powerline-default-separator-dir)))) (separator-right (intern (format powerline-%s-%s (powerline-current-separator) (cdr powerline-default-separator-dir)))) (lhs (list (powerline-raw %* face0 (quote l)) (when powerline-display-buffer-size (powerline-buffer-size face0 (quote l))) (powerline-buffer-id (` (mode-line-buffer-id (, face0))) (quote l)) (powerline-raw   face0) (funcall separator-left face0 face1) (powerline-narrow face1 (quote l)) (powerline-vc face1))) (rhs (list (powerline-raw global-mode-string face1 (quote r)) (powerline-raw %4l face1 (quote r)) (powerline-raw : face1) (powerline-raw %3c face1 (quote r)) (funcall separator-right face1 face0) (powerline-raw   face0) (powerline-raw %6p face0 (quote r)) (when powerline-display-hud (powerline-hud face2 face1)) (powerline-fill face0 0))) (center (list (powerline-raw   face1) (funcall separator-left face1 face2) (when (and (boundp (quote erc-track-minor-mode)) erc-track-minor-mode) (powerline-raw erc-modified-channels-object face2 (quote l))) (powerline-major-mode face2 (quote l)) (powerline-process face2) (powerline-raw  : face2) (powerline-minor-modes face2 (quote l)) (powerline-raw   face2) (funcall separator-right face2 face1)))) (concat (powerline-render lhs) (powerline-fill-center face1 (/ (powerline-width center) 2.0)) (powerline-render center) (powerline-fill face1 (powerline-width rhs)) (powerline-render rhs)))) |
+*** Treemacs font
+
+#+BEGIN_SRC emacs-lisp
+(require 'treemacs)
+
+(set-face-attribute 'treemacs-directory-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-collapsed-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-file-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-directory-collapsed-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-file-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-unreadable-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-unreadable-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-root-remote-disconnected-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-tags-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-help-title-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-help-column-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-term-node-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-on-success-pulse-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-on-failure-pulse-face nil :font "Roboto-12")
+#+END_SRC
+
+#+RESULTS:
+
 ** No Backup~ Files
 For some people it may be useful. But I just disable it because I rarely needed those backup files scattering about in directories.
 #+BEGIN_SRC emacs-lisp
@@ -163,6 +214,7 @@ For some people it may be useful. But I just disable it because I rarely needed 
   (setq initial-scratch-message nil)
   (setq initial-major-mode 'org-mode)
 #+END_SRC
+
 * Views and Windows
 Split right and split below.
 #+BEGIN_SRC emacs-lisp
@@ -170,9 +222,9 @@ Split right and split below.
     "Split window below"
     (interactive)
     (split-window-below)
-    (other-window 1))
 
-  (defun ian/split-and-follow-vertically ()
+    (other-window 1))
+    (defun ian/split-and-follow-vertically ()
     "Split window right"
     (interactive)
     (split-window-right)
@@ -191,3 +243,38 @@ Split right and split below.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'before-save-hook 'whitespace-cleanup)
 #+END_SRC
+* Centaur
+Tabs Shortcuts
+#+BEGIN_SRC emacs-lisp
+(require 'centaur-tabs)
+
+(global-set-key [C-tab] 'centaur-tabs-forward)
+(global-set-key [C-S-tab] 'centaur-tabs-backward)
+#+END_SRC
+
+#+RESULTS:
+: centaur-tabs-backward
+* Misc
+** Linum Mode
+#+BEGIN_SRC emacs-lisp
+(global-linum-mode 1)
+#+END_SRC
+
+#+RESULTS:
+: t
+** No Title Bar
+#+BEGIN_SRC emacs-lisp
+(set-frame-parameter nil 'undecorated t)
+#+END_SRC
+
+#+RESULTS:
+** Custom Autosave Directory
+#+BEGIN_SRC emacs-lisp
+(setq auto-save-file-name-transforms
+  `((".*" "~/.emacs-saves/" t)))
+#+END_SRC
+
+#+RESULTS:
+| .* | ~/.emacs-saves/ | t |
+|    |                 |   |
+|    |                 |   |

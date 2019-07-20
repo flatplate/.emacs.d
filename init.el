@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs init file
 ;;  Author: Ian Y.E. Pan
-;;; Commentary:
+;;; tary:
 ;;; A lightweight Emacs config containing only the essentials: shipped with a custom theme!
 ;;; Code:
 
