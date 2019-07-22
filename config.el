@@ -127,6 +127,13 @@
 (set-face-attribute 'treemacs-term-node-face nil :font "Roboto-12")
 (set-face-attribute 'treemacs-on-success-pulse-face nil :font "Roboto-12")
 (set-face-attribute 'treemacs-on-failure-pulse-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-unmodified-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-modified-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-renamed-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-ignored-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-untracked-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-added-face nil :font "Roboto-12")
+(set-face-attribute 'treemacs-git-conflict-face nil :font "Roboto-12")
 
 (setq make-backup-files nil)
 
@@ -167,4 +174,4 @@
 (set-frame-parameter nil 'undecorated t)
 
 (setq auto-save-file-name-transforms
-  `((".*" "~/.emacs-saves/" t)))
+  `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "~/.emacs-saves/\\2" t)))
